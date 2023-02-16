@@ -7,13 +7,15 @@
 #include<dos.h>   //for delay()
 #include <windows.h>
 #include <conio.h>
+#include "Fantome.h"
+#include "coordonnee.h"
 
 using namespace std;
 
 int nbLignes = 8;
 int nbColonnes = 10;
 char** matrice;
-enum SensEtat{gauche, droite, haut, bas};
+
 
 void lireMatrice(char** m)
 {
