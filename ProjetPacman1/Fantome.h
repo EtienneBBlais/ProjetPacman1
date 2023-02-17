@@ -1,71 +1,22 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <string>
-#include<dos.h>   //for delay()
-#include <windows.h>
-#include <conio.h>
-#include "coordonnee.h"
-#include <ctime>
-
-using namespace std;
-
-enum SensEtat { haut, bas, droite, gauche, nul };
-
-double tprecedent;
+#include "Personnage.h"
 
 
-class Fantome
+
+
+class Fantome : public Personnage
 {
-private:
-	SensEtat sensPossible[4];
-	SensEtat sensChoisi;
-	Coordonnee position;
 public:
+	virtual void determinerSensChoisi();
 	Fantome(int x, int y, char** matrice);
-	void determinerSensPossible(char** matrice);
-	void determinerSensChoisi();
-	SensEtat getSens();
-	void BougerFantome(char** matrice);
-	double getTempsSecondes();
-	double getTempsMs();
 };
 
-Fantome::Fantome(int x, int y, char** matrice)
+Fantome::Fantome(int x, int y, char** matrice) : Personnage(x, y, matrice)
 {
-	position.x = x;
-	position.y = y;
-	sensChoisi = nul;
-	matrice[position.x][position.y] = 'F';
+	Personnage(x, y, matrice);
 }
 
-void Fantome::determinerSensPossible(char** matrice)
-{
-	if (matrice[position.x][position.y - 1] != '#')
-		sensPossible[0] = haut;
-	else
-		sensPossible[0] = nul;
 
-	if (matrice[position.x][position.y + 1] != '#')
-		sensPossible[1] = bas;
-	else
-		sensPossible[1] = nul;
-
-	if (matrice[position.x+1][position.y] != '#')
-		sensPossible[2] = droite;
-	else
-		sensPossible[2] = nul;
-
-	if (matrice[position.x - 1][position.y] != '#')
-		sensPossible[3] = gauche;
-	else
-		sensPossible[3] = nul;
-}
-
-SensEtat Fantome::getSens()
-{
-	return sensChoisi;
-}
 
 void Fantome::determinerSensChoisi()
 {
@@ -85,41 +36,3 @@ void Fantome::determinerSensChoisi()
 			
 }
 
-void Fantome::BougerFantome(char** matrice)
-{
-	if (tprecedent + 100 < getTempsMs())
-	{
-		
-		determinerSensPossible(matrice);
-		determinerSensChoisi();
-		matrice[position.x][position.y] = ' ';
-		if (sensChoisi == gauche)
-			position.x--;
-		if (sensChoisi == droite)
-			position.x++;
-		if (sensChoisi == haut)
-			position.y--;
-		if (sensChoisi == bas)
-			position.y++;
-		
-		matrice[position.x][position.y] = 'F';
-		tprecedent+=100;
-	}
-}
-
-double Fantome::getTempsSecondes()
-{
-	static time_t start_time = time(NULL);
-	time_t current_time = time(NULL);
-	double elapsed_seconds = difftime(current_time, start_time);
-	return elapsed_seconds;
-}
-
-double Fantome::getTempsMs()
-{
-	static clock_t start_time = clock();
-	clock_t current_time = clock();
-	double elapsed_ticks = (double)(current_time - start_time);
-	double elapsed_milliseconds = (elapsed_ticks / CLOCKS_PER_SEC) * 1000.0;
-	return elapsed_milliseconds;
-}

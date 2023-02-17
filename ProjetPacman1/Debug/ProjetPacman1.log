@@ -1,3 +1,1 @@
-﻿  ProjetPacman1.cpp
-C:\Users\etien\source\repos\ProjetPacman1\ProjetPacman1\Fantome.h(76,12): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
-  ProjetPacman1.vcxproj -> C:\Users\etien\source\repos\ProjetPacman1\Debug\ProjetPacman1.exe
+﻿  ProjetPacman1.vcxproj -> C:\Users\etien\source\repos\ProjetPacman1\Debug\ProjetPacman1.exe

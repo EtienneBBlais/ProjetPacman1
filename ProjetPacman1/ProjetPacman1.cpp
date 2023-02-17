@@ -83,21 +83,21 @@ int main()
     lireMatrice(matrice);
     AfficherMatrice(matrice);
 
-    char c = 'q';
-    int f = 0;
+    
+    
     COORD cursorPosition;
     cursorPosition.X = 0;
     cursorPosition.Y = 0;
     system("cls");
     Fantome *fantome = new Fantome(1, 1, matrice);
     int compteur = 0;
-    while (c != ' ')
+    while (1)
     {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
         
         
         AfficherMatrice(matrice);
-        fantome->BougerFantome(matrice);
+        fantome->BougerPersonnage(matrice);
         cout << fantome->getTempsSecondes();
        
     }
