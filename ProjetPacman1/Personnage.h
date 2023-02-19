@@ -1,18 +1,25 @@
+/********
+* Fichier: Personnage.h
+* Auteur(s) : Etienne Bellerive-Blais
+* Date : Fevrier 2023 (creation)
+* Description:
+********/
 #pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
-#include<dos.h>   //for delay()
+#include <dos.h> 
 #include <windows.h>
 #include <conio.h>
 #include "coordonnee.h"
 #include <ctime>
 
+
 using namespace std;
 
 enum SensEtat { haut, bas, droite, gauche, nul };
 
-double tprecedent;
+
 
 
 class Personnage
@@ -21,23 +28,26 @@ protected:
 	SensEtat sensPossible[4];
 	SensEtat sensChoisi;
 	Coordonnee position;
+	char symbole;
+	double tprecedent = 0;
 public:
-	Personnage(int x, int y, char** matrice);
+	Personnage(int x, int y, char** matrice, char symb);
 
 	void determinerSensPossible(char** matrice);
 	virtual void determinerSensChoisi();
 	SensEtat getSens();
 	void BougerPersonnage(char** matrice);
-	double getTempsSecondes();
+	Coordonnee getPosition();
 	double getTempsMs();
 };
 
-Personnage::Personnage(int x, int y, char** matrice)
+Personnage::Personnage(int x, int y, char** matrice, char symb)
 {
 	position.x = x;
 	position.y = y;
 	sensChoisi = nul;
-	matrice[position.x][position.y] = 'F';
+	matrice[position.x][position.y] = symb;
+	symbole = symb;
 }
 
 void Personnage::determinerSensPossible(char** matrice)
@@ -70,20 +80,6 @@ SensEtat Personnage::getSens()
 
 void Personnage::determinerSensChoisi()
 {
-	if (sensPossible[sensChoisi] != nul)
-		return;
-
-
-	srand(time(0));
-	int rand_int = rand() % 4;
-	while (sensPossible[rand_int] == nul)
-	{
-		rand_int = rand() % 4;
-	}
-	sensChoisi = sensPossible[rand_int];
-
-
-
 }
 
 void Personnage::BougerPersonnage(char** matrice)
@@ -103,18 +99,12 @@ void Personnage::BougerPersonnage(char** matrice)
 		if (sensChoisi == bas)
 			position.y++;
 
-		matrice[position.x][position.y] = 'F';
+		matrice[position.x][position.y] = symbole;
 		tprecedent += 100;
 	}
 }
 
-double Personnage::getTempsSecondes()
-{
-	static time_t start_time = time(NULL);
-	time_t current_time = time(NULL);
-	double elapsed_seconds = difftime(current_time, start_time);
-	return elapsed_seconds;
-}
+
 
 double Personnage::getTempsMs()
 {
@@ -123,4 +113,9 @@ double Personnage::getTempsMs()
 	double elapsed_ticks = (double)(current_time - start_time);
 	double elapsed_milliseconds = (elapsed_ticks / CLOCKS_PER_SEC) * 1000.0;
 	return elapsed_milliseconds;
+}
+
+Coordonnee Personnage::getPosition()
+{
+	return position;
 }
