@@ -87,12 +87,25 @@ int main()
     while (YouDead == false)
     {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+        if (fantome->getPosition().x == protagoniste->getPosition().x && fantome->getPosition().y == protagoniste->getPosition().y)
+        {
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+            YouDead = true;
+            AfficherMatrice(matrice);
+            break;
+        }
         AfficherMatrice(matrice);
         protagoniste->BougerPersonnage(matrice);
+        if (fantome->getPosition().x == protagoniste->getPosition().x && fantome->getPosition().y == protagoniste->getPosition().y)
+        {
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+            YouDead = true;
+            AfficherMatrice(matrice);
+            break;
+        }
         fantome->BougerPersonnage(matrice);
         cout << fantome->getTempsMs();
-        if (fantome->getPosition().x == protagoniste->getPosition().x && fantome->getPosition().y == protagoniste->getPosition().y)
-            YouDead = true;
+        
     }
     cout << endl << endl << "T'es mort. Meilleure chance la prochaine fois" << endl;   
 }
