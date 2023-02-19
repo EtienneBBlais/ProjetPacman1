@@ -34,8 +34,7 @@ SensEtat Manette::DeterminerSensClavier()
 	if (GetKeyState('A') & 0x8000)
 		sens = gauche;
 		
-	return sens;
-	
+	return sens;	
 }
 
 

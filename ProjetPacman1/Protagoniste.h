@@ -8,9 +8,6 @@
 #include "Personnage.h"
 #include "Manette.h"
 
-
-
-
 class Protagoniste : public Personnage
 {
 private:
@@ -26,23 +23,13 @@ Protagoniste::Protagoniste(int x, int y, char** matrice, char symb) : Personnage
 	Personnage(x, y, matrice, symb);
 }
 
-
-
 void Protagoniste::determinerSensChoisi()
 {
-	
-	
 	SensEtat sensTemp = clavier->DeterminerSensClavier();
 	
 	if (sensPossible[sensTemp] == nul)
 		sensTemp = nul;
 
 	sensChoisi = sensTemp;
-	
-
-	
-
-
-
 }
 

@@ -23,26 +23,20 @@ int nbColonnes = 10;
 char** matrice;
 bool YouDead;
 
-
-
 void lireMatrice(char** m)
 {
     char sautDeLigne;
     string filename = "map.txt";
     ifstream file(filename);
-    if (!file.is_open()) {
+    if (!file.is_open()) 
         std::cout << "Error opening file " << filename << std::endl;
-    }
 
     for (int i = 0; i < nbLignes; i++)
     {
         for (int j = 0; j < nbColonnes; j++)
-        {
             file.get(m[j][i]);
-        }
         file.get(sautDeLigne);
     }
-
     file.close();
 }
 
@@ -51,9 +45,7 @@ void AfficherMatrice(char** m)
     for (int i = 0; i < nbLignes; i++)
     {
         for (int j = 0; j < nbColonnes; j++)
-        {
             cout << m[j][i];
-        }
         cout << endl;
     }
 }
@@ -73,9 +65,6 @@ int main()
         matrice[i] = new char[nbLignes];
     }
     
-    std::cout << "Hello World!\n";
-    
-
     //initialisation et affichage initial de la matrice
     for (int i = 0; i < nbLignes; i++)
     {
@@ -86,12 +75,8 @@ int main()
         }
         cout << endl;
     }
-    
     lireMatrice(matrice);
     AfficherMatrice(matrice);
-
-    
-    
     COORD cursorPosition;
     cursorPosition.X = 0;
     cursorPosition.Y = 0;
@@ -102,26 +87,12 @@ int main()
     while (YouDead == false)
     {
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
-        
-       
-
         AfficherMatrice(matrice);
-        
         protagoniste->BougerPersonnage(matrice);
-        fantome->BougerPersonnage(matrice); /// CHATGPT, LE PROBLEME EST ICI
+        fantome->BougerPersonnage(matrice);
         cout << fantome->getTempsMs();
-        
         if (fantome->getPosition().x == protagoniste->getPosition().x && fantome->getPosition().y == protagoniste->getPosition().y)
             YouDead = true;
-        
-        if (GetKeyState('T') & 0x8000/*Check if high-order bit is set (1 << 15)*/)
-        {
-            cout << endl << endl << "A a ete presse" << endl;
-            YouDead = true;
-        }
-        
-       
     }
-    cout << endl << endl << "T'es mort. Meilleure chance la prochaine fois" << endl;
-    
+    cout << endl << endl << "T'es mort. Meilleure chance la prochaine fois" << endl;   
 }

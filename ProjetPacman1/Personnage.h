@@ -14,13 +14,9 @@
 #include "coordonnee.h"
 #include <ctime>
 
-
 using namespace std;
 
 enum SensEtat { haut, bas, droite, gauche, nul };
-
-
-
 
 class Personnage
 {
@@ -78,9 +74,7 @@ SensEtat Personnage::getSens()
 	return sensChoisi;
 }
 
-void Personnage::determinerSensChoisi()
-{
-}
+void Personnage::determinerSensChoisi(){}
 
 void Personnage::BougerPersonnage(char** matrice)
 {
