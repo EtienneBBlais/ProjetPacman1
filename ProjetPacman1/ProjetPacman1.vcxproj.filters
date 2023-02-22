@@ -32,7 +32,7 @@
     <ClInclude Include="Protagoniste.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Manette.h">
+    <ClInclude Include="Clavier.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

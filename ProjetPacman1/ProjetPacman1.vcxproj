@@ -144,7 +144,7 @@
   <ItemGroup>
     <ClInclude Include="coordonnee.h" />
     <ClInclude Include="Fantome.h" />
-    <ClInclude Include="Manette.h" />
+    <ClInclude Include="Clavier.h" />
     <ClInclude Include="Personnage.h" />
     <ClInclude Include="Protagoniste.h" />
   </ItemGroup>

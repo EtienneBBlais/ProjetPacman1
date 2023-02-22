@@ -13,13 +13,13 @@
 #include <conio.h>
 #include "Fantome.h"
 #include "coordonnee.h"
-#include "Manette.h"
+#include "Clavier.h"
 #include "Protagoniste.h"
 
 using namespace std;
 
-int nbLignes = 8;
-int nbColonnes = 10;
+int nbLignes = 10;
+int nbColonnes = 20;
 char** matrice;
 bool YouDead;
 
@@ -82,7 +82,9 @@ int main()
     cursorPosition.Y = 0;
     system("cls");
     Fantome *fantome = new Fantome(1, 1, matrice, 'F');
-    Protagoniste* protagoniste = new Protagoniste(5, 1, matrice, 'P');
+    Fantome* fantome2 = new Fantome(1, 1, matrice, 'F');
+
+    Protagoniste* protagoniste = new Protagoniste(10, 1, matrice, 'P');
     int compteur = 0;
     while (YouDead == false)
     {
@@ -101,11 +103,19 @@ int main()
             SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
             YouDead = true;
             AfficherMatrice(matrice);
+            cout << endl << endl << "T'es mort. Meilleure chance la prochaine fois" << endl;
+            break;
+        }
+        if (protagoniste->YouWin == true)
+        {
+            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+            YouDead = true;
+            AfficherMatrice(matrice);
+            cout << endl << endl << "T'as gagne'. That's it Bro" << endl;
             break;
         }
         fantome->BougerPersonnage(matrice);
         cout << fantome->getTempsMs();
-        
     }
-    cout << endl << endl << "T'es mort. Meilleure chance la prochaine fois" << endl;   
+      
 }

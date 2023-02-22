@@ -26,6 +26,7 @@ protected:
 	Coordonnee position;
 	char symbole;
 	double tprecedent = 0;
+	int vitesse = 150;
 public:
 	Personnage(int x, int y, char** matrice, char symb);
 
@@ -78,7 +79,7 @@ void Personnage::determinerSensChoisi(){}
 
 void Personnage::BougerPersonnage(char** matrice)
 {
-	if (tprecedent + 100 < getTempsMs())
+	if (tprecedent + vitesse < getTempsMs())
 	{
 
 		determinerSensPossible(matrice);
@@ -94,7 +95,7 @@ void Personnage::BougerPersonnage(char** matrice)
 			position.y++;
 
 		matrice[position.x][position.y] = symbole;
-		tprecedent += 100;
+		tprecedent += vitesse;
 	}
 }
 
