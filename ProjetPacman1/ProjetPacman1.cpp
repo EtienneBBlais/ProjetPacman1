@@ -8,114 +8,35 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include<dos.h>   //for delay()
+#include <dos.h>   //for delay()
 #include <windows.h>
 #include <conio.h>
 #include "Fantome.h"
 #include "coordonnee.h"
 #include "Clavier.h"
 #include "Protagoniste.h"
+#include "Niveau.h"
 
 using namespace std;
 
-int nbLignes = 10;
-int nbColonnes = 20;
-char** matrice;
-bool YouDead;
-
-void lireMatrice(char** m)
-{
-    char sautDeLigne;
-    string filename = "map.txt";
-    ifstream file(filename);
-    if (!file.is_open()) 
-        std::cout << "Error opening file " << filename << std::endl;
-
-    for (int i = 0; i < nbLignes; i++)
-    {
-        for (int j = 0; j < nbColonnes; j++)
-            file.get(m[j][i]);
-        file.get(sautDeLigne);
-    }
-    file.close();
-}
-
-void AfficherMatrice(char** m)
-{
-    for (int i = 0; i < nbLignes; i++)
-    {
-        for (int j = 0; j < nbColonnes; j++)
-            cout << m[j][i];
-        cout << endl;
-    }
-}
 
 int main()
 {
-    YouDead = false;
-    //cache le curseur
-    CONSOLE_CURSOR_INFO cursorInfo;
-    cursorInfo.dwSize = 100;
-    cursorInfo.bVisible = false;
-    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
-
-    SensEtat sens = gauche;
-    char** matrice = new char* [nbColonnes];
-    for (int i = 0; i < nbColonnes; i++) {
-        matrice[i] = new char[nbLignes];
-    }
     
-    //initialisation et affichage initial de la matrice
-    for (int i = 0; i < nbLignes; i++)
-    {
-        for (int j = 0; j < nbColonnes; j++)
-        {
-            matrice[j][i] = ' ';
-            cout << matrice[j][i];
-        }
-        cout << endl;
-    }
-    lireMatrice(matrice);
-    AfficherMatrice(matrice);
-    COORD cursorPosition;
-    cursorPosition.X = 0;
-    cursorPosition.Y = 0;
-    system("cls");
-    Fantome *fantome = new Fantome(1, 1, matrice, 'F');
-    Fantome* fantome2 = new Fantome(1, 1, matrice, 'F');
 
-    Protagoniste* protagoniste = new Protagoniste(10, 1, matrice, 'P');
-    int compteur = 0;
-    while (YouDead == false)
-    {
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
-        if (fantome->getPosition().x == protagoniste->getPosition().x && fantome->getPosition().y == protagoniste->getPosition().y)
-        {
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
-            YouDead = true;
-            AfficherMatrice(matrice);
-            break;
-        }
-        AfficherMatrice(matrice);
-        protagoniste->BougerPersonnage(matrice);
-        if (fantome->getPosition().x == protagoniste->getPosition().x && fantome->getPosition().y == protagoniste->getPosition().y)
-        {
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
-            YouDead = true;
-            AfficherMatrice(matrice);
-            cout << endl << endl << "T'es mort. Meilleure chance la prochaine fois" << endl;
-            break;
-        }
-        if (protagoniste->YouWin == true)
-        {
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
-            YouDead = true;
-            AfficherMatrice(matrice);
-            cout << endl << endl << "T'as gagne'. That's it Bro" << endl;
-            break;
-        }
-        fantome->BougerPersonnage(matrice);
-        cout << fantome->getTempsMs();
-    }
-      
+    Fantome** fantomes = new Fantome*[2];
+    Protagoniste** protagonistes = new Protagoniste*[2];
+
+    fantomes[0] = new Fantome(1, 1, 'F');
+    fantomes[1] = new Fantome(1, 2, 'F');
+
+    protagonistes[0] = new Protagoniste(10, 1, 'P');
+    protagonistes[1] = new Protagoniste(12, 1, 'S');
+
+
+
+    Niveau* niveau = new Niveau(2,2,protagonistes, fantomes, "map.txt");
+
+    while(!niveau->mort)
+        niveau->Update();
 }

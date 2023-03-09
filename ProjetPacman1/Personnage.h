@@ -26,9 +26,9 @@ protected:
 	Coordonnee position;
 	char symbole;
 	double tprecedent = 0;
-	int vitesse = 150;
+	
 public:
-	Personnage(int x, int y, char** matrice, char symb);
+	Personnage(int x, int y, char symb);
 
 	void determinerSensPossible(char** matrice);
 	virtual void determinerSensChoisi();
@@ -36,14 +36,15 @@ public:
 	void BougerPersonnage(char** matrice);
 	Coordonnee getPosition();
 	double getTempsMs();
+	int vitesse = 150;
 };
 
-Personnage::Personnage(int x, int y, char** matrice, char symb)
+Personnage::Personnage(int x, int y, char symb)
 {
 	position.x = x;
 	position.y = y;
 	sensChoisi = nul;
-	matrice[position.x][position.y] = symb;
+	
 	symbole = symb;
 }
 
