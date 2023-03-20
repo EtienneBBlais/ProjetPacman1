@@ -11,12 +11,12 @@ class Fantome : public Personnage
 {
 public:
 	virtual void determinerSensChoisi();
-	Fantome(int x, int y, char symb);
+	Fantome(int x, int y, char** matrice, char symb);
 };
 
-Fantome::Fantome(int x, int y, char symb) : Personnage(x, y, symb)
+Fantome::Fantome(int x, int y, char** matrice, char symb) : Personnage(x, y, matrice, symb)
 {
-	Personnage(x, y, symb);
+	Personnage(x, y, matrice, symb);
 	sensChoisi = nul;
 }
 

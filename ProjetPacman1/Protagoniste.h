@@ -12,24 +12,22 @@ class Protagoniste : public Personnage
 {
 private:
 	Clavier *clavier = new Clavier();
-	char symbol;
 public:
 	virtual void determinerSensChoisi();
-	Protagoniste(int x, int y, char symb);
+	Protagoniste(int x, int y, char** matrice, char symb);
 	bool IsDead();
 	void BougerPersonnage(char** matrice);
 	bool YouWin = false;
 };
 
-Protagoniste::Protagoniste(int x, int y, char symb) : Personnage(x, y, symb)
+Protagoniste::Protagoniste(int x, int y, char** matrice, char symb) : Personnage(x, y, matrice, symb)
 {
-	Personnage(x, y, symb);
-	symbol = symb;
+	Personnage(x, y, matrice, symb);
 }
 
 void Protagoniste::determinerSensChoisi()
 {
-	SensEtat sensTemp = clavier->DeterminerSensClavier(symbol);
+	SensEtat sensTemp = clavier->DeterminerSensClavier();
 	
 	if (sensPossible[sensTemp] == nul)
 		sensTemp = nul;

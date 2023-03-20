@@ -145,7 +145,6 @@
     <ClInclude Include="coordonnee.h" />
     <ClInclude Include="Fantome.h" />
     <ClInclude Include="Clavier.h" />
-    <ClInclude Include="Niveau.h" />
     <ClInclude Include="Personnage.h" />
     <ClInclude Include="Protagoniste.h" />
   </ItemGroup>
